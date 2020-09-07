@@ -1,0 +1,13 @@
+# Developer Files
+.idea
+.DS_Store
+Desktop.ini
+.Trashes
+.Spotlight-V100
+Thumbs.db
+
+# Project Files
+/public/build
+/node_modules
+
+
