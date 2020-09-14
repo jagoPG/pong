@@ -13,26 +13,44 @@ class Racket {
     this.defaultX = x;
     this.defaultY = y;
     this.position = new Position({x, y});
+    this.isPressingUp = false;
+    this.isPressingDown = false;
     this.bindControls(goUpKey, goDownKey);
   }
 
   bindControls(goUpKey, goDownKey) {
     addEventListener('keydown', evt => {
       if (evt.keyCode === goUpKey) {
-        if (this.position.y <= BOARD_TOP_LIMIT + BOARD_BORDER_WIDTH) {
-          this.position.y = BOARD_TOP_LIMIT + BOARD_BORDER_WIDTH;
-          return;
-        }
-        this.position.y -= 5;
+        this.isPressingUp = true;
       } else if (evt.keyCode === goDownKey) {
-        if (this.position.y + DEFAULT_HEIGHT >= BOARD_HEIGHT
-            - BOARD_BORDER_WIDTH) {
-          this.position.y = BOARD_HEIGHT - DEFAULT_HEIGHT - BOARD_BORDER_WIDTH;
-          return;
-        }
-        this.position.y += 5;
+        this.isPressingDown = true;
       }
     });
+
+    addEventListener('keyup', evt => {
+      if (evt.keyCode === goUpKey) {
+        this.isPressingUp = false;
+      } else if (evt.keyCode === goDownKey) {
+        this.isPressingDown = false;
+      }
+    });
+  }
+
+  goUp() {
+    if (this.position.y <= BOARD_TOP_LIMIT + BOARD_BORDER_WIDTH) {
+      this.position.y = BOARD_TOP_LIMIT + BOARD_BORDER_WIDTH;
+      return;
+    }
+    this.position.y -= 5;
+  }
+
+  goDown() {
+    if (this.position.y + DEFAULT_HEIGHT >= BOARD_HEIGHT
+      - BOARD_BORDER_WIDTH) {
+      this.position.y = BOARD_HEIGHT - DEFAULT_HEIGHT - BOARD_BORDER_WIDTH;
+      return;
+    }
+    this.position.y += 5;
   }
 
   toString() {
@@ -42,6 +60,14 @@ class Racket {
   draw($canvas) {
     const ctx = $canvas.getContext('2d');
     ctx.fillStyle = RACKET_COLOR;
+
+    if (this.isPressingUp) {
+      this.goUp();
+    }
+    if (this.isPressingDown) {
+      this.goDown();
+    } 
+
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 

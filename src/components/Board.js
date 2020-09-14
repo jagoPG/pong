@@ -18,6 +18,7 @@ import {
   isGoalScored,
   isLeftGoal
 } from './../util/collisions';
+import RacketAi from './RacketAi';
 
 const
     BOARD_WIDTH = 500,
@@ -39,6 +40,7 @@ class Board {
     console.log(this.onGameFinishedCallback);
     this.setupSize();
     this.setupRackets();
+    this.setupRacketsAi();
   }
 
   setupSize() {
@@ -64,6 +66,11 @@ class Board {
       x: centeredPosition(BOARD_WIDTH, BALL_WIDTH),
       y: centeredPosition(BOARD_HEIGHT, BALL_HEIGHT)
     });
+  }
+
+  setupRacketsAi() {
+    this.leftRacketAi = new RacketAi(this.leftPlayer, this.ball.position);
+    this.rightRacketAi = new RacketAi(this.rightPlayer, this.ball.position);
   }
 
   draw() {
@@ -126,6 +133,8 @@ class Board {
         return;
       }
     }
+    this.leftRacketAi.render();
+    this.rightRacketAi.render();
     this.ball.move();
   }
 
