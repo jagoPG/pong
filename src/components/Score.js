@@ -4,7 +4,7 @@ import {
 import {BOARD_WIDTH, BOARD_TOP_LIMIT} from './Board';
 import Position from './Position';
 
-const MAX_SCORE = 3;
+const MAX_SCORE = 9;
 
 class Score {
   constructor($canvas) {
