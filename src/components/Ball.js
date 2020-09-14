@@ -9,7 +9,7 @@ import {BOARD_WIDTH, BOARD_HEIGHT} from './Board';
 const
     WIDTH = 12,
     HEIGHT = 12,
-    SPEED = 2,
+    SPEED = 3,
     INITIAL_ANGLE = 45,
     TO_RIGHT = 1,
     TO_LEFT = 0,
