@@ -1,13 +1,13 @@
 {
-  "name": "2d-painting",
+  "name": "pong",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "My own version of the pong game created by Atari",
+  "main": "server/index.js",
   "scripts": {
     "test": "node_modules/jest/bin/jest.js",
     "build": "webpack",
     "watch": "node_modules/webpack-cli/bin/cli.js --watch",
-    "open": "open public/index.html"
+    "server": "node server/index.js"
   },
   "author": "Jagoba Pérez-Gómez",
   "license": "MIT",

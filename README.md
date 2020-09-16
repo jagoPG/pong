@@ -16,5 +16,5 @@ npm run watch
 
 ## Running
 ```
-npm run open
+npm run server
 ```
