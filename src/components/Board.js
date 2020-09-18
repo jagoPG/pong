@@ -29,7 +29,11 @@ const
     RIGHT_RACKET_X_POSITION = 490,
     BOARD_BACKGROUND_COLOR = '#1E1F21',
     BOARD_BORDER_COLOR = '#0C8900',
-    FONT_COLOR = '#0C8900';
+    FONT_COLOR = '#0C8900',
+    LEFT_PLAYER_DOWN_KEY = 83,
+    LEFT_PLAYER_UP_KEY = 87,
+    RIGHT_PLAYER_DOWN_KEY = 76,
+    RIGHT_PLAYER_UP_KEY = 79;
 
 class Board {
   constructor($canvas, onGameFinishedCallback) {
@@ -53,14 +57,14 @@ class Board {
     this.leftPlayer = new Racket({
       x: LEFT_RACKET_X_POSITION,
       y: verticalPosition,
-      goDownKey: 83,
-      goUpKey: 87
+      goDownKey: LEFT_PLAYER_DOWN_KEY,
+      goUpKey: LEFT_PLAYER_UP_KEY,
     });
     this.rightPlayer = new Racket({
       x: RIGHT_RACKET_X_POSITION - RACKET_WIDTH,
       y: verticalPosition,
-      goDownKey: 76,
-      goUpKey: 79
+      goDownKey: RIGHT_PLAYER_DOWN_KEY,
+      goUpKey: RIGHT_PLAYER_UP_KEY,
     });
     this.ball = new Ball({
       x: centeredPosition(BOARD_WIDTH, BALL_WIDTH),
@@ -71,6 +75,15 @@ class Board {
   setupRacketsAi() {
     this.leftRacketAi = new RacketAi(this.leftPlayer, this.ball.position);
     this.rightRacketAi = new RacketAi(this.rightPlayer, this.ball.position);
+    document.addEventListener('keydown', evt => {
+      if (evt.keyCode == LEFT_PLAYER_DOWN_KEY || evt.keyCode == LEFT_PLAYER_UP_KEY) {
+        this.leftRacketAi.disable();
+        this.rightRacketAi.enable();
+      } else if (evt.keyCode == RIGHT_PLAYER_DOWN_KEY || evt.keyCode == RIGHT_PLAYER_UP_KEY) {
+        this.leftRacketAi.enable();
+        this.rightRacketAi.disable();
+      }
+    })
   }
 
   draw() {

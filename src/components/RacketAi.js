@@ -4,12 +4,16 @@ import { DEFAULT_HEIGHT as RACKET_HEIGHT } from './Racket';
 
 class RacketAi {
   constructor(racket, ballPosition) {
+    this.enabled = true;
     this.racket = racket;
     this.ballPosition = ballPosition;
     this.isLeftPlayer = racket.position.x < BOARD_WIDTH / 2;
   }
 
   render() {
+    if (!this.enabled) {
+      return;
+    }
     if (!this.isBallClose()) {
       return;
     }
@@ -31,6 +35,14 @@ class RacketAi {
     return this.isLeftPlayer ? 
         boardMiddle - boardMiddleOffset > ballPosition : 
         boardMiddle + boardMiddleOffset < ballPosition;
+  }
+
+  disable() {
+    this.enabled = false;
+  }
+
+  enable() {
+    this.enabled = true;
   }
 }
 
