@@ -53,7 +53,7 @@ class Game {
   }
 
   onGameFinishedCallback() {
-    this.pause(); // TODO Fix binding error
+    this.pause();
     this.gameFinished = true;
   }
 }
